@@ -1,13 +1,5 @@
-const shopItems = [
-  { title: 'Monochrome Edit', description: 'Refined silhouettes in black, cream, and warm gold.', image: '/photo6.jpg', accent: 'from-[#000000] via-[#4c4546] to-[#fed65b]' },
-  { title: 'Evening Layering', description: 'Soft structure designed for late-night elegance.', image: '/photo7.jpg', accent: 'from-[#1b1c1c] via-[#735c00] to-[#e9c349]' },
-  { title: 'Studio Accessories', description: 'Polished pieces that complete the wardrobe with ease.', image: '/photo8.jpg', accent: 'from-[#f5f3f3] via-[#e4e2e2] to-[#cfc4c5]' },
-  { title: 'Tailored Essentials', description: 'Minimal forms with a quiet but confident presence.', image: '/photo9.jpg', accent: 'from-[#ffffff] via-[#efeded] to-[#dbdad9]' },
-{ title: 'Evening Layering', description: 'Soft structure designed for late-night elegance.', image: '/photo10.jpg', accent: 'from-[#1b1c1c] via-[#735c00] to-[#e9c349]' },
-  {   title: 'Studio Accessories', description: 'Polished pieces that complete the wardrobe with ease.', image: '/photo2.jpg', accent: 'from-[#f5f3f3] via-[#e4e2e2] to-[#cfc4c5]' },
-  { title: 'Tailored Essentials', description: 'Minimal forms with a quiet but confident presence.', image: '/photo1.jpg', accent: 'from-[#ffffff] via-[#efeded] to-[#dbdad9]' },
-    { title: 'Monochrome Edit', description: 'Refined silhouettes in black, cream, and warm gold.', image: '/photo3.jpg', accent: 'from-[#000000] via-[#4c4546] to-[#fed65b]' },    
-]   
+import { Link } from 'react-router-dom'
+import { shopItems } from '../data/shopItems'
 
 function ShopPage() {
   return (
@@ -30,7 +22,7 @@ function ShopPage() {
       <section className="grid gap-6 md:grid-cols-2">
         {shopItems.map((item, index) => (
           <article
-            key={item.title}
+            key={item.slug}
             className="group overflow-hidden rounded-[1.8rem] border border-[#e4e2e2] bg-[#f5f3f3] shadow-[0_18px_50px_rgba(27,28,28,0.08)] opacity-0 animate-[fadeIn_0.9s_ease-out_forwards] transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(27,28,28,0.12)]"
             style={{ animationDelay: `${index * 120}ms` }}
           >
@@ -45,9 +37,12 @@ function ShopPage() {
             <div className="p-6">
               <p className="font-display text-2xl text-[#000000]">{item.title}</p>
               <p className="mt-3 text-sm leading-7 text-[#4c4546]">{item.description}</p>
-              <button className="mt-5 rounded-full bg-[#000000] px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#ffffff] transition duration-300 hover:-translate-y-0.5 hover:bg-[#1b1b1b]">
+              <Link
+                to={`/shop/${item.slug}`}
+                className="mt-5 inline-flex rounded-full bg-[#000000] px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#ffffff] transition duration-300 hover:-translate-y-0.5 hover:bg-[#1b1b1b]"
+              >
                 View piece
-              </button>
+              </Link>
             </div>
           </article>
         ))}

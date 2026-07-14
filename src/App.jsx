@@ -6,6 +6,7 @@ import CollectionPage from './Pages/CollectionPage'
 import JournalPage from './Pages/JournalPage'
 import VisitPage from './Pages/VisitPage'
 import ShopPage from './Pages/Shop'
+import ProductDetails from './Pages/ProductDetails'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/collection" element={<CollectionPage />} />
             <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop/:slug" element={<ProductDetails />} />
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/visit" element={<VisitPage />} />
           </Routes>
