@@ -1,16 +1,84 @@
-# React + Vite
+# ELÉGANCE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium editorial storefront built with React, Vite, Tailwind CSS, and React Router.
 
-Currently, two official plugins are available:
+## Project overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project is a refined fashion landing experience with:
 
-## React Compiler
+- responsive editorial styling
+- Tailwind-based premium layout and typography
+- multi-page routing with `react-router-dom`
+- product collection, shop, journal, and booking pages
+- a dedicated product details page for individual items
+- scroll blur/shadow effects and entrance animations
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pages
 
-## Expanding the ESLint configuration
+- `/` — Home
+- `/collection` — Collection edit
+- `/shop` — Shop gallery
+- `/shop/:slug` — Product details
+- `/journal` — Editorial journal
+- `/visit` — Studio appointment
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Key files
+
+- `src/App.jsx` — app shell, router, navbar, footer
+- `src/components/Layout/Navbar.jsx` — animated header
+- `src/components/Layout/Footer.jsx` — site footer
+- `src/Pages/HomePage.jsx` — landing page
+- `src/Pages/CollectionPage.jsx` — curated collection
+- `src/Pages/Shop.jsx` — shop grid with product links
+- `src/Pages/ProductDetails.jsx` — product detail view
+- `src/Pages/JournalPage.jsx` — editorial stories
+- `src/Pages/VisitPage.jsx` — appointment information
+- `src/data/shopItems.js` — shared shop item data and slugs
+
+## Installation
+
+```bash
+npm install
+```
+
+## Development
+
+```bash
+npm run dev
+```
+
+Open the local dev server URL shown in the terminal.
+
+## Build
+
+```bash
+npm run build
+```
+
+## Preview
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+This project can be deployed as a static site. For GitHub Pages:
+
+1. Build the app:
+
+```bash
+npm run build
+```
+
+2. Push the `dist/` folder to the `gh-pages` branch, or use a deployment action.
+
+3. In GitHub repository settings, enable Pages for the `gh-pages` branch.
+
+For other static hosting providers (Netlify, Vercel, Cloudflare Pages), simply connect the repository and use the build command above.
+
+## Notes
+
+- Static images are loaded from the `public/` folder.
+- `tailwindcss` is configured through Vite and global styles are located in `src/index.css`.
+- New products can be added by editing `src/data/shopItems.js` and reusing `slug` links.
