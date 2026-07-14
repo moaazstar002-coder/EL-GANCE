@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 const links = [
@@ -9,8 +10,25 @@ const links = [
 ]
 
 function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="border-b border-[#e4e2e2] bg-[#fbf9f9]/95 backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 border-b border-[#e4e2e2] transition-all duration-300 ${
+        scrolled ? 'bg-[#fbf9f9]/90 shadow-[0_8px_30px_rgba(27,28,28,0.06)] backdrop-blur-xl' : 'bg-[#fbf9f9]/95 backdrop-blur'
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10 lg:px-16">
         <NavLink
           to="/"
