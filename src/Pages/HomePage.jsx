@@ -1,4 +1,4 @@
-import { AnimatedButton, AnimatedCard, SectionHeader } from '../components/UI/button'
+import { AnimatedButton, AnimatedCard } from '../components/UI/button'
 
 const highlights = [
   {
@@ -18,17 +18,17 @@ const highlights = [
 const featuredPieces = [
   {
     name: 'Signature Tote',
-    detail: 'Italian leather • Soft gold hardware',
+    detail: 'Italian leather - soft gold hardware',
     price: '$980',
   },
   {
     name: 'Tailored Coat',
-    detail: 'Structured wool • Satin lining',
+    detail: 'Structured wool - satin lining',
     price: '$1,240',
   },
   {
     name: 'Sculptural Heel',
-    detail: 'Minimalist form • Midnight finish',
+    detail: 'Minimalist form - midnight finish',
     price: '$720',
   },
 ]
@@ -36,18 +36,18 @@ const featuredPieces = [
 function HomePage() {
   return (
     <div className="space-y-8">
-      <section className="grid gap-8 rounded-[2rem] border border-[#e4e2e2] bg-white/70 p-6 shadow-[0_20px_80px_rgba(27,28,28,0.06)] opacity-0 animate-[fadeIn_0.8s_ease-out_forwards] lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
+      <section className="grid gap-8 rounded-[2rem] border border-[#e4e2e2] bg-white/75 p-6 shadow-[0_20px_80px_rgba(27,28,28,0.06)] opacity-0 animate-[fadeIn_0.8s_ease-out_forwards] lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
         <div className="flex flex-col justify-between">
           <div className="space-y-5">
             <p className="text-sm uppercase tracking-[0.35em] text-[#735c00]">
-              New season · 2026 edit
+              New season - 2026 edit
             </p>
             <h1 className="font-display text-4xl leading-tight text-[#000000] sm:text-5xl lg:text-6xl">
               Quiet luxury, shaped for modern rituals.
             </h1>
             <p className="max-w-xl text-lg leading-8 text-[#4c4546]">
               Discover a refined wardrobe of tailored layers, sculptural accessories,
-              and softly structured essentials inspired by the ELÉGANCE studio.
+              and softly structured essentials inspired by the ELEGANCE studio.
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -57,17 +57,20 @@ function HomePage() {
             <AnimatedButton to="/journal" variant="secondary">
               Read journal
             </AnimatedButton>
+            <AnimatedButton to="/visit" variant="ghost">
+              Book visit
+            </AnimatedButton>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-[#e4e2e2] bg-[#f5f3f3] p-6">
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-[#e4e2e2] bg-[#f5f3f3] p-4">
           <div className="absolute right-4 top-4 h-24 w-24 rounded-full bg-[#fed65b]/70 blur-3xl" />
           <div className="absolute bottom-6 left-6 h-28 w-28 rounded-full bg-[#dbdad9] blur-2xl" />
-          <div className="relative flex h-full min-h-[360px] flex-col justify-between overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-[#fdfcfb] to-[#efeded] p-6">
+          <div className="relative flex min-h-[360px] flex-col justify-between overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-[#fdfcfb] to-[#efeded] p-6">
             <img
               src="/photo1.jpg"
               alt="Editorial fashion portrait"
-              className="absolute inset-0 h-full w-full bg-[#f5f3f3] object-contain object-center p-3"
+              className="absolute inset-0 h-full w-full object-contain object-center p-3"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
             <div className="relative">
@@ -86,9 +89,9 @@ function HomePage() {
               <div className="mt-4 flex items-end justify-between">
                 <div>
                   <p className="font-display text-2xl text-[#000000]">Soft structure</p>
-                  <p className="mt-1 text-sm text-[#4c4546]">Signature capsule • 12 pieces</p>
+                  <p className="mt-1 text-sm text-[#4c4546]">Signature capsule - 12 pieces</p>
                 </div>
-                <div className="h-16 w-16 rounded-full border border-[#000000]" />
+                <div className="h-16 w-16 rounded-full border border-[#000000]" aria-hidden="true" />
               </div>
             </div>
           </div>
@@ -121,7 +124,7 @@ function HomePage() {
           </p>
           <div className="mt-8 rounded-[1.2rem] border border-white/10 bg-white/10 p-5">
             <p className="text-sm uppercase tracking-[0.25em] text-[#cfc4c5]">Editorial note</p>
-            <p className="mt-3 text-lg leading-8 text-[#f8f6f6]">“Less noise, more presence.”</p>
+            <p className="mt-3 text-lg leading-8 text-[#f8f6f6]">Less noise, more presence.</p>
           </div>
         </div>
 

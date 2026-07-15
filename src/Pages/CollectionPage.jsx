@@ -48,8 +48,14 @@ function CollectionPage() {
             delay={index * 0.12}
             className="overflow-hidden rounded-[1.4rem] border border-[#e4e2e2] bg-[#f5f3f3] p-5"
           >
-            <img src={piece.image} alt={piece.name} className="h-40 w-full rounded-[1rem] bg-[#ffffff] object-contain p-2" />
-            <Badge variant="accent" className="mt-4">{piece.category}</Badge>
+            <img
+              src={piece.image}
+              alt={piece.name}
+              className="h-40 w-full rounded-[1rem] bg-[#ffffff] object-contain p-2 transition duration-500 hover:scale-[1.02]"
+            />
+            <Badge variant="accent" className="mt-4">
+              {piece.category}
+            </Badge>
             <h2 className="mt-2 font-display text-xl text-[#000000]">{piece.name}</h2>
             <p className="mt-3 text-sm leading-7 text-[#4c4546]">{piece.description}</p>
           </AnimatedCard>

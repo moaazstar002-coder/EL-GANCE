@@ -9,7 +9,11 @@ export function Badge({ children, variant = 'default', className = '' }) {
   }
 
   return (
-    <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] ${variants[variant] || variants.default} ${className}`.trim()}>
+    <span
+      className={`inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] ${
+        variants[variant] || variants.default
+      } ${className}`.trim()}
+    >
       {children}
     </span>
   )
@@ -18,16 +22,30 @@ export function Badge({ children, variant = 'default', className = '' }) {
 export function SectionShell({ eyebrow, title, description, children, className = '', tone = 'light' }) {
   const toneStyles = {
     light: 'border-[#e4e2e2] bg-[#ffffff] text-[#1b1c1c]',
-    dark: 'border-[#e4e2e2] bg-[#000000] text-[#ffffff]',
+    dark: 'border-[#000000] bg-[#000000] text-[#ffffff]',
   }
 
   return (
-    <section className={`rounded-[2rem] border p-8 shadow-[0_20px_70px_rgba(27,28,28,0.06)] ${toneStyles[tone] || toneStyles.light} ${className}`.trim()}>
+    <section
+      className={`rounded-[2rem] border p-8 shadow-[0_20px_70px_rgba(27,28,28,0.06)] ${toneStyles[tone] || toneStyles.light} ${className}`.trim()}
+    >
       {eyebrow || title || description ? (
         <div className="mb-6">
-          {eyebrow ? <p className={`text-sm uppercase tracking-[0.3em] ${tone === 'dark' ? 'text-[#fed65b]' : 'text-[#735c00]'}`}>{eyebrow}</p> : null}
-          {title ? <h2 className={`mt-3 font-display text-3xl sm:text-4xl ${tone === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'}`}>{title}</h2> : null}
-          {description ? <p className={`mt-4 max-w-2xl text-lg leading-8 ${tone === 'dark' ? 'text-[#e2e2e2]' : 'text-[#4c4546]'}`}>{description}</p> : null}
+          {eyebrow ? (
+            <p className={`text-sm uppercase tracking-[0.3em] ${tone === 'dark' ? 'text-[#fed65b]' : 'text-[#735c00]'}`}>
+              {eyebrow}
+            </p>
+          ) : null}
+          {title ? (
+            <h2 className={`mt-3 font-display text-3xl sm:text-4xl ${tone === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'}`}>
+              {title}
+            </h2>
+          ) : null}
+          {description ? (
+            <p className={`mt-4 max-w-2xl text-lg leading-8 ${tone === 'dark' ? 'text-[#e2e2e2]' : 'text-[#4c4546]'}`}>
+              {description}
+            </p>
+          ) : null}
         </div>
       ) : null}
       {children}
@@ -35,8 +53,18 @@ export function SectionShell({ eyebrow, title, description, children, className 
   )
 }
 
-export function InputField({ label, placeholder, type = 'text', value, onChange, helperText, textarea = false, className = '' }) {
-  const inputClassName = `mt-2 w-full rounded-[1rem] border border-[#e4e2e2] bg-[#f8f6f5] px-4 py-3 text-sm text-[#1b1c1c] outline-none transition focus:border-[#735c00] ${className}`.trim()
+export function InputField({
+  label,
+  placeholder,
+  type = 'text',
+  value,
+  onChange,
+  helperText,
+  textarea = false,
+  className = '',
+}) {
+  const inputClassName =
+    `mt-2 w-full rounded-[1rem] border border-[#e4e2e2] bg-[#f8f6f5] px-4 py-3 text-sm text-[#1b1c1c] outline-none transition focus:border-[#735c00] ${className}`.trim()
 
   return (
     <label className="block text-sm text-[#4c4546]">

@@ -25,24 +25,26 @@ function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-[#e4e2e2] transition-all duration-300 ${
-        scrolled ? 'bg-[#fbf9f9]/90 shadow-[0_8px_30px_rgba(27,28,28,0.06)] backdrop-blur-xl' : 'bg-[#fbf9f9]/95 backdrop-blur'
+      className={`sticky top-0 z-50 border-b border-[#e4e2e2]/80 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#fbf9f9]/88 shadow-[0_8px_30px_rgba(27,28,28,0.06)] backdrop-blur-xl'
+          : 'bg-[#fbf9f9]/80 backdrop-blur'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-10 lg:px-16">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-5 md:px-8 lg:px-12">
         <NavLink
           to="/"
           className="flex flex-col transition duration-300 hover:-translate-y-0.5 hover:text-[#000000]"
         >
           <span className="font-display text-xl font-semibold tracking-[0.24em] text-[#000000]">
-            ELÉGANCE
+            ELEGANCE
           </span>
           <span className="text-[10px] uppercase tracking-[0.35em] text-[#4c4546] transition duration-300 hover:text-[#735c00]">
             Editorial fashion house
           </span>
         </NavLink>
 
-        <nav className="flex items-center gap-4 text-sm uppercase tracking-[0.2em] text-[#4c4546] md:gap-8">
+        <nav className="hidden items-center gap-4 text-sm uppercase tracking-[0.2em] text-[#4c4546] md:flex md:gap-8">
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -57,6 +59,13 @@ function Navbar() {
             </NavLink>
           ))}
         </nav>
+
+        <NavLink
+          to="/visit"
+          className="inline-flex items-center justify-center rounded-full border border-[#cfc4c5] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#735c00] hover:text-[#735c00]"
+        >
+          Book visit
+        </NavLink>
       </div>
     </header>
   )

@@ -1,17 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
   --font-display: 'Playfair Display', serif;
   --font-body: 'Montserrat', sans-serif;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background-color: #fbf9f9;
+  background:
+    radial-gradient(circle at top, rgba(254, 214, 91, 0.14), transparent 24%),
+    linear-gradient(180deg, #fffdf8 0%, #fbf9f9 35%, #f4f0ed 100%);
   color: #1b1c1c;
   font-family: var(--font-body);
+  line-height: 1.5;
 }
 
 @keyframes fadeIn {
@@ -33,6 +37,20 @@ body {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
 a {
   text-decoration: none;
+}
+
+::selection {
+  background: rgba(254, 214, 91, 0.4);
+  color: #000;
 }

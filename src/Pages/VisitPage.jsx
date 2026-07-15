@@ -1,6 +1,6 @@
-import { AnimatedCard, SectionHeader } from '../components/UI/button'
+import { AnimatedCard } from '../components/UI/button'
 import { InfoPanel } from '../components/UI/card'
-import { SectionShell, InputField, EmptyState, LoadingState } from '../components/UI/advanced'
+import { SectionShell, InputField } from '../components/UI/advanced'
 
 function VisitPage() {
   return (
@@ -12,13 +12,12 @@ function VisitPage() {
         tone="dark"
         className="p-8 text-[#ffffff]"
       >
-
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.85fr] items-center">
+        <div className="mt-10 grid items-center gap-6 lg:grid-cols-[1.2fr_0.85fr]">
           <div className="space-y-6">
             <AnimatedCard className="rounded-[1.7rem] border border-[#ffffff]/10 bg-white/5 p-7 shadow-[0_18px_40px_rgba(255,255,255,0.07)]">
               <InfoPanel
                 eyebrow="Studio hours"
-                title="Monday to Saturday · 10:00 to 19:00"
+                title="Monday to Saturday - 10:00 to 19:00"
                 tone="dark"
                 className="border-0 bg-transparent p-0 shadow-none"
               />
@@ -42,9 +41,12 @@ function VisitPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/50 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 rounded-[1.4rem] bg-[#ffffff]/90 p-5 text-[#1b1c1c] shadow-lg backdrop-blur-sm">
                 <p className="text-sm uppercase tracking-[0.3em] text-[#735c00]">Studio</p>
-                <p className="mt-2 text-lg font-semibold">A calm space to explore texture, proportion, and quiet details.</p>
+                <p className="mt-2 text-lg font-semibold">
+                  A calm space to explore texture, proportion, and quiet details.
+                </p>
               </div>
             </div>
+
             <div className="rounded-[1.6rem] border border-[#e4e2e2] bg-[#ffffff] p-6 shadow-sm">
               <InputField label="Name" placeholder="Your name" />
               <InputField label="Email" placeholder="you@example.com" type="email" className="mt-4" />
