@@ -1,3 +1,5 @@
+import { AnimatedButton, AnimatedCard, SectionHeader } from '../components/UI/button'
+
 const highlights = [
   {
     title: 'Curated essentials',
@@ -49,18 +51,12 @@ function HomePage() {
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="/collection"
-              className="rounded-full bg-[#000000] px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#ffffff] transition hover:bg-[#1b1b1b]"
-            >
+            <AnimatedButton to="/collection" variant="primary">
               Shop collection
-            </a>
-            <a
-              href="/journal"
-              className="rounded-full border border-[#cfc4c5] px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#1b1c1c] transition hover:border-[#735c00] hover:text-[#735c00]"
-            >
+            </AnimatedButton>
+            <AnimatedButton to="/journal" variant="secondary">
               Read journal
-            </a>
+            </AnimatedButton>
           </div>
         </div>
 
@@ -101,15 +97,15 @@ function HomePage() {
 
       <section className="grid gap-4 md:grid-cols-3">
         {highlights.map((item, index) => (
-          <article
+          <AnimatedCard
             key={item.title}
-            className="rounded-[1.3rem] border border-[#e4e2e2] bg-[#f5f3f3] p-6 opacity-0 animate-[fadeIn_0.9s_ease-out_forwards] transition duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(27,28,28,0.08)]"
-            style={{ animationDelay: `${index * 120}ms` }}
+            delay={index * 0.12}
+            className="rounded-[1.3rem] border border-[#e4e2e2] bg-[#f5f3f3] p-6 shadow-sm"
           >
             <p className="text-sm uppercase tracking-[0.3em] text-[#735c00]">0{index + 1}</p>
             <p className="mt-3 font-display text-xl text-[#000000]">{item.title}</p>
             <p className="mt-3 text-sm leading-7 text-[#4c4546]">{item.description}</p>
-          </article>
+          </AnimatedCard>
         ))}
       </section>
 
@@ -131,10 +127,10 @@ function HomePage() {
 
         <div className="grid gap-4 md:grid-cols-3">
           {featuredPieces.map((piece, index) => (
-            <article
+            <AnimatedCard
               key={piece.name}
-              className="rounded-[1.4rem] border border-[#e4e2e2] bg-[#ffffff] p-5 shadow-sm opacity-0 animate-[fadeIn_0.9s_ease-out_forwards] transition duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(27,28,28,0.1)]"
-              style={{ animationDelay: `${index * 120}ms` }}
+              delay={index * 0.12}
+              className="rounded-[1.4rem] border border-[#e4e2e2] bg-[#ffffff] p-5 shadow-sm"
             >
               <div className="relative overflow-hidden rounded-[1rem]">
                 <img
@@ -154,7 +150,7 @@ function HomePage() {
                   View
                 </button>
               </div>
-            </article>
+            </AnimatedCard>
           ))}
         </div>
       </section>

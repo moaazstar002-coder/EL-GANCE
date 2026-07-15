@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { getItemBySlug } from '../data/shopItems'
+import { AnimatedButton, AnimatedCard, SectionHeader } from '../components/UI/button'
 
 function ProductDetails() {
   const { slug } = useParams()
@@ -30,10 +31,8 @@ function ProductDetails() {
           <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
         </div>
 
-        <div className="space-y-8 rounded-[2rem] border border-[#e4e2e2] bg-[#ffffff] p-10 shadow-[0_20px_70px_rgba(27,28,28,0.06)] opacity-0 animate-[fadeIn_0.8s_ease-out_forwards]">
-          <p className="text-sm uppercase tracking-[0.3em] text-[#735c00]">Piece details</p>
-          <h1 className="font-display text-4xl text-[#000000]">{item.title}</h1>
-          <p className="max-w-2xl text-lg leading-8 text-[#4c4546]">{item.description}</p>
+        <AnimatedCard className="space-y-8 rounded-[2rem] border border-[#e4e2e2] bg-[#ffffff] p-10 shadow-[0_20px_70px_rgba(27,28,28,0.06)]">
+          <SectionHeader eyebrow="Piece details" title={item.title} description={item.description} className="!space-y-0" />
           <p className="text-base leading-8 text-[#4c4546]">{item.details}</p>
 
           <div className="grid gap-5 sm:grid-cols-2">
@@ -48,9 +47,7 @@ function ProductDetails() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button className="rounded-full bg-[#000000] px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#ffffff] transition duration-300 hover:bg-[#1b1b1b]">
-              Inquire now
-            </button>
+            <AnimatedButton variant="primary">Inquire now</AnimatedButton>
             <Link
               to="/shop"
               className="text-sm uppercase tracking-[0.2em] text-[#4c4546] transition duration-300 hover:text-[#000000]"
@@ -58,7 +55,7 @@ function ProductDetails() {
               Back to shop
             </Link>
           </div>
-        </div>
+        </AnimatedCard>
       </section>
     </div>
   )
