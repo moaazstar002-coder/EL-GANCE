@@ -1,34 +1,49 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 const CartContext = createContext()
+const STORAGE_KEY = 'elegance_cart'
+
+function normalizeCartItems(items) {
+  if (!Array.isArray(items)) return []
+
+  return items
+    .filter(Boolean)
+    .map((item) => ({
+      ...item,
+      quantity: Math.max(1, Number(item.quantity) || 1),
+    }))
+}
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(() => {
-    // Try to load from local storage
-    const saved = localStorage.getItem('elegance_cart')
-    if (saved) {
-      try {
-        return JSON.parse(saved)
-      } catch (e) {
-        return []
-      }
+    if (typeof window === 'undefined') return []
+
+    try {
+      const saved = window.localStorage.getItem(STORAGE_KEY)
+      return saved ? normalizeCartItems(JSON.parse(saved)) : []
+    } catch {
+      return []
     }
-    return []
   })
 
   useEffect(() => {
-    localStorage.setItem('elegance_cart', JSON.stringify(cart))
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart))
+    }
   }, [cart])
 
   const addToCart = (product, quantity = 1) => {
+    const normalizedQuantity = Math.max(1, Number(quantity) || 1)
+
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id)
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + normalizedQuantity } : item
         )
       }
-      return [...prev, { ...product, quantity }]
+
+      return [...prev, { ...product, quantity: normalizedQuantity }]
     })
   }
 
@@ -40,8 +55,8 @@ export function CartProvider({ children }) {
     setCart((prev) =>
       prev.map((item) => {
         if (item.id === productId) {
-          const newQuantity = Math.max(1, item.quantity + amount)
-          return { ...item, quantity: newQuantity }
+          const nextQuantity = Math.max(1, item.quantity + amount)
+          return { ...item, quantity: nextQuantity }
         }
         return item
       })
@@ -50,14 +65,18 @@ export function CartProvider({ children }) {
 
   const clearCart = () => setCart([])
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0)
-  
-  // Calculate total price. Convert price strings (e.g. "980" or "1,240") to numbers.
-  const subtotal = cart.reduce((acc, item) => {
-    let priceStr = String(item.price || '0').replace(/[^0-9.]/g, '')
-    let priceNum = parseFloat(priceStr) || 0
-    return acc + priceNum * item.quantity
-  }, 0)
+  const totalItems = useMemo(() => cart.reduce((acc, item) => acc + item.quantity, 0), [cart])
+
+  const subtotal = useMemo(() => {
+    return cart.reduce((acc, item) => {
+      const priceStr = String(item.price || '0').replace(/[^0-9.]/g, '')
+      const priceNum = parseFloat(priceStr) || 0
+      return acc + priceNum * item.quantity
+    }, 0)
+  }, [cart])
+
+  const isInCart = (productId) => cart.some((item) => item.id === productId)
+  const getItemQuantity = (productId) => cart.find((item) => item.id === productId)?.quantity ?? 0
 
   return (
     <CartContext.Provider
@@ -68,7 +87,9 @@ export function CartProvider({ children }) {
         updateQuantity,
         clearCart,
         totalItems,
-        subtotal
+        subtotal,
+        isInCart,
+        getItemQuantity,
       }}
     >
       {children}

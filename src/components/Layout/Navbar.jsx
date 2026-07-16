@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingBag } from 'lucide-react'
+import { useCart } from '../../context/CartContext'
 
 const links = [
   { to: '/', label: 'Home' },
@@ -14,6 +15,7 @@ const links = [
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { totalItems } = useCart()
 
   useEffect(() => {
     const onScroll = () => {
@@ -78,6 +80,18 @@ function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <NavLink
+              to="/cart"
+              className="relative inline-flex items-center justify-center rounded-full border border-[#cfc4c5] p-2.5 text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#735c00] hover:text-[#735c00]"
+              aria-label="Open cart"
+            >
+              <ShoppingBag size={18} />
+              {totalItems > 0 ? (
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#000000] px-1 text-[10px] font-semibold text-[#ffffff]">
+                  {totalItems}
+                </span>
+              ) : null}
+            </NavLink>
             <NavLink
               to="/visit"
               className="hidden items-center justify-center rounded-full border border-[#cfc4c5] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#735c00] hover:text-[#735c00] md:inline-flex"

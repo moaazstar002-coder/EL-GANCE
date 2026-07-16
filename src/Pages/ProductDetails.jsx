@@ -6,12 +6,14 @@ import { AnimatedButton, AnimatedCard, SectionHeader } from '../components/UI/bu
 import { EmptyState, LoadingState } from '../components/UI/advanced'
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { useCart } from '../context/CartContext'
 
 function normalizeProduct(item) {
   if (!item) return null
 
   return {
     id: item._id || item.slug,
+    slug: item._id || item.slug,
     title: item.name || item.title,
     description: item.description,
     details: item.details || item.description,
@@ -29,6 +31,7 @@ function ProductDetails() {
   const { slug } = useParams()
   const [item, setItem] = useState(null)
   const [loading, setLoading] = useState(true)
+  const { addToCart } = useCart()
 
   useEffect(() => {
     let ignore = false
@@ -147,7 +150,9 @@ function ProductDetails() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <AnimatedButton variant="primary">Inquire now</AnimatedButton>
+            <AnimatedButton variant="primary" onClick={() => addToCart(item)}>
+              Add to bag
+            </AnimatedButton>
             <Link
               to="/shop"
               className="text-sm uppercase tracking-[0.2em] text-[#4c4546] transition duration-300 hover:text-[#000000]"

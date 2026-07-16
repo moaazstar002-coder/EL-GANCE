@@ -8,7 +8,9 @@ import JournalPage from './Pages/JournalPage'
 import VisitPage from './Pages/VisitPage'
 import ShopPage from './Pages/Shop'
 import ProductDetails from './Pages/ProductDetails'
+import CartPage from './Pages/cart'
 import NotFound from './Pages/404_NotFound'
+import { CartProvider } from './context/CartContext'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -20,6 +22,7 @@ function AnimatedRoutes() {
         <Route path="/collection" element={<CollectionPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/:slug" element={<ProductDetails />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/journal" element={<JournalPage />} />
         <Route path="/visit" element={<VisitPage />} />
         <Route path="*" element={<NotFound />} />
@@ -31,13 +34,15 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffaf0_0%,_#fbf9f9_36%,_#f4f0ed_100%)] text-[#1b1c1c]">
-        <Navbar />
-        <main className="mx-auto w-full max-w-7xl px-5 py-8 md:px-8 lg:px-12 lg:py-10">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </div>
+      <CartProvider>
+        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffaf0_0%,_#fbf9f9_36%,_#f4f0ed_100%)] text-[#1b1c1c]">
+          <Navbar />
+          <main className="mx-auto w-full max-w-7xl px-5 py-8 md:px-8 lg:px-12 lg:py-10">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
+      </CartProvider>
     </BrowserRouter>
   )
 }
