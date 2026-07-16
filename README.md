@@ -1,84 +1,95 @@
-# ELÉGANCE
+# ELEGANCE
 
-A premium editorial storefront built with React, Vite, Tailwind CSS, and React Router.
+Luxury women's clothing e-commerce project with a React + Vite frontend and a Node.js + Express + MongoDB backend.
 
-## Project overview
-
-This project is a refined fashion landing experience with:
-
-- responsive editorial styling
-- Tailwind-based premium layout and typography
-- multi-page routing with `react-router-dom`
-- product collection, shop, journal, and booking pages
-- a dedicated product details page for individual items
-- scroll blur/shadow effects and entrance animations
-
-## Pages
-
-- `/` — Home
-- `/collection` — Collection edit
-- `/shop` — Shop gallery
-- `/shop/:slug` — Product details
-- `/journal` — Editorial journal
-- `/visit` — Studio appointment
-
-## Key files
-
-- `src/App.jsx` — app shell, router, navbar, footer
-- `src/components/Layout/Navbar.jsx` — animated header
-- `src/components/Layout/Footer.jsx` — site footer
-- `src/Pages/HomePage.jsx` — landing page
-- `src/Pages/CollectionPage.jsx` — curated collection
-- `src/Pages/Shop.jsx` — shop grid with product links
-- `src/Pages/ProductDetails.jsx` — product detail view
-- `src/Pages/JournalPage.jsx` — editorial stories
-- `src/Pages/VisitPage.jsx` — appointment information
-- `src/data/shopItems.js` — shared shop item data and slugs
-
-## Installation
+## Frontend
 
 ```bash
 npm install
+npm run dev
 ```
 
-## Development
+Frontend URL:
+
+```text
+http://localhost:5173
+```
+
+Production build:
+
+```bash
+npm run build
+```
+
+## Backend
+
+```bash
+cd backend
+npm install
+```
+
+The backend includes a ready local `.env` and an `.env.example`.
+
+API URL:
+
+```text
+http://localhost:5000/api
+```
+
+Start MongoDB locally, then seed the database:
+
+```bash
+npm run seed
+```
+
+Start the API:
 
 ```bash
 npm run dev
 ```
 
-Open the local dev server URL shown in the terminal.
+## API Routes
 
-## Build
+```text
+GET    /api/products
+GET    /api/products?category=Dresses&minPrice=100&maxPrice=300&sort=price_asc&page=1&limit=12
+GET    /api/products/featured
+GET    /api/products/category/:category
+GET    /api/products/:id
 
-```bash
-npm run build
+GET    /api/categories
+
+POST   /api/users/register
+POST   /api/users/login
+
+POST   /api/orders
+GET    /api/orders/my-orders
 ```
 
-## Preview
+Order routes require:
 
-```bash
-npm run preview
+```text
+Authorization: Bearer <token>
 ```
 
-## Deployment
+## Images
 
-This project can be deployed as a static site. For GitHub Pages:
+Product images are stored in:
 
-1. Build the app:
-
-```bash
-npm run build
+```text
+public/images/products
 ```
 
-2. Push the `dist/` folder to the `gh-pages` branch, or use a deployment action.
+The backend seed uses:
 
-3. In GitHub repository settings, enable Pages for the `gh-pages` branch.
-
-For other static hosting providers (Netlify, Vercel, Cloudflare Pages), simply connect the repository and use the build command above.
+```text
+/images/products/product-1.jpg
+...
+/images/products/product-40.jpg
+```
 
 ## Notes
 
-- Static images are loaded from the `public/` folder.
-- `tailwindcss` is configured through Vite and global styles are located in `src/index.css`.
-- New products can be added by editing `src/data/shopItems.js` and reusing `slug` links.
+- The shop and product detail pages call `http://localhost:5000/api`.
+- If the API is offline during frontend development, the frontend falls back to local sample products.
+- MongoDB must be running locally before `npm run seed` or `npm run dev` in `backend`.

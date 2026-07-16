@@ -1,10 +1,22 @@
 import { AnimatedCard } from '../components/UI/button'
 import { InfoPanel } from '../components/UI/card'
 import { SectionShell, InputField } from '../components/UI/advanced'
+import { motion } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 
 function VisitPage() {
   return (
-    <div className="space-y-10">
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="space-y-10"
+    >
+      <Helmet>
+        <title>Visit Us | ELÉGANCE</title>
+        <meta name="description" content="Book a personal styling session at the studio. Discover the collection in person." />
+      </Helmet>
       <SectionShell
         eyebrow="Private appointment"
         title="Book a personal styling session at the studio."
@@ -23,7 +35,7 @@ function VisitPage() {
               />
             </AnimatedCard>
 
-            <AnimatedCard className="rounded-[1.7rem] border border-[#e4e2e2] bg-[#ffffff] p-7 shadow-sm">
+            <AnimatedCard className="rounded-[1.7rem] border border-white/50 bg-white/50 backdrop-blur-md p-7 shadow-sm">
               <InfoPanel
                 eyebrow="Reservation"
                 title="Reserve your appointment via email or through our private concierge."
@@ -37,7 +49,7 @@ function VisitPage() {
 
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-[2rem] border border-[#e4e2e2] bg-[#f5f3f3]">
-              <img src="/photo7.jpg" alt="Studio interior" className="h-full w-full object-cover" />
+              <img src="/images/products/product-7.jpg" alt="Studio interior" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/50 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 rounded-[1.4rem] bg-[#ffffff]/90 p-5 text-[#1b1c1c] shadow-lg backdrop-blur-sm">
                 <p className="text-sm uppercase tracking-[0.3em] text-[#735c00]">Studio</p>
@@ -47,7 +59,7 @@ function VisitPage() {
               </div>
             </div>
 
-            <div className="rounded-[1.6rem] border border-[#e4e2e2] bg-[#ffffff] p-6 shadow-sm">
+            <div className="rounded-[1.6rem] border border-white/50 bg-white/50 backdrop-blur-md p-6 shadow-sm">
               <InputField label="Name" placeholder="Your name" />
               <InputField label="Email" placeholder="you@example.com" type="email" className="mt-4" />
               <InputField label="Notes" placeholder="Tell us what you are looking for" textarea className="mt-4" />
@@ -55,7 +67,7 @@ function VisitPage() {
           </div>
         </div>
       </SectionShell>
-    </div>
+    </motion.div>
   )
 }
 

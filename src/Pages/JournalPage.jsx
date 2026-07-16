@@ -1,5 +1,7 @@
 import { AnimatedCard, SectionHeader } from '../components/UI/button'
 import { InfoPanel } from '../components/UI/card'
+import { motion } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 
 const stories = [
   {
@@ -18,8 +20,18 @@ const stories = [
 
 function JournalPage() {
   return (
-    <div className="space-y-10">
-      <section className="rounded-[2rem] border border-[#e4e2e2] bg-[#ffffff] p-8 shadow-[0_20px_70px_rgba(27,28,28,0.06)]">
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="space-y-10"
+    >
+      <Helmet>
+        <title>Journal | ELÉGANCE</title>
+        <meta name="description" content="A journal of thoughtful styling, polished essentials, and the calm confidence of modern luxury." />
+      </Helmet>
+      <section className="rounded-[2rem] border border-white/40 bg-white/40 backdrop-blur-md p-8 shadow-[0_20px_70px_rgba(27,28,28,0.06)]">
         <SectionHeader
           eyebrow="Journal"
           title="The art of dressing with restraint."
@@ -32,7 +44,7 @@ function JournalPage() {
               <AnimatedCard
                 key={story.title}
                 delay={index * 0.08}
-                className="rounded-[1.7rem] border border-[#e4e2e2] bg-[#f8f6f5] p-7 shadow-sm"
+                className="rounded-[1.7rem] border border-white/50 bg-white/50 backdrop-blur-sm p-7 shadow-sm transition-colors hover:bg-white/70"
               >
                 <p className="font-display text-xl text-[#000000]">{story.title}</p>
                 <p className="mt-4 text-sm leading-7 text-[#4c4546]">{story.body}</p>
@@ -42,7 +54,7 @@ function JournalPage() {
 
           <div className="relative overflow-hidden rounded-[2rem] bg-[#1b1c1c]">
             <img
-              src="/photo6.jpg"
+              src="/images/products/product-6.jpg"
               alt="Editorial silhouette"
               className="h-full w-full object-cover"
             />
@@ -58,7 +70,7 @@ function JournalPage() {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   )
 }
 
