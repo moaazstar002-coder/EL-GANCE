@@ -14,6 +14,7 @@ function normalizeCartItems(items) {
     }))
 }
 
+
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(() => {
     if (typeof window === 'undefined') return []
@@ -67,13 +68,15 @@ export function CartProvider({ children }) {
 
   const totalItems = useMemo(() => cart.reduce((acc, item) => acc + item.quantity, 0), [cart])
 
-  const subtotal = useMemo(() => {
-    return cart.reduce((acc, item) => {
-      const priceStr = String(item.price || '0').replace(/[^0-9.]/g, '')
-      const priceNum = parseFloat(priceStr) || 0
-      return acc + priceNum * item.quantity
-    }, 0)
-  }, [cart])
+  const normalizePrice = (price) => {
+  if (price === null || price === undefined || price === '') return 0
+  if (typeof price === 'number') return Math.max(0, price)
+  
+  const cleanPrice = String(price).replace(/[^\d.]/g, '')
+  const numPrice = parseFloat(cleanPrice)
+  
+  return isNaN(numPrice) ? 0 : Math.max(0, numPrice)
+}
 
   const isInCart = (productId) => cart.some((item) => item.id === productId)
   const getItemQuantity = (productId) => cart.find((item) => item.id === productId)?.quantity ?? 0
@@ -87,7 +90,7 @@ export function CartProvider({ children }) {
         updateQuantity,
         clearCart,
         totalItems,
-        subtotal,
+        normalizePrice,
         isInCart,
         getItemQuantity,
       }}
