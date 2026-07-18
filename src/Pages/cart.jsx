@@ -22,6 +22,7 @@ function CartPage() {
     cart,
     updateQuantity,
     removeFromCart,
+    normalizePrice,
     clearCart,
     subtotal,
     totalItems,

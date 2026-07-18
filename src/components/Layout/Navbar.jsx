@@ -1,52 +1,52 @@
-import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ShoppingBag } from 'lucide-react'
-import { useCart } from '../../context/CartContext'
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ShoppingBag } from "lucide-react";
+import { useCart } from "../../context/CartContext";
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/collection', label: 'Collection' },
-  { to: '/shop', label: 'Shop' },
-  { to: '/journal', label: 'Journal' },
-  { to: '/visit', label: 'Visit' },
-]
+  { to: "/", label: "Home" },
+  { to: "/collection", label: "Collection" },
+  { to: "/shop", label: "Shop" },
+  { to: "/journal", label: "Journal" },
+  { to: "/visit", label: "Visit" },
+];
 
 function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { totalItems } = useCart()
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 8)
-    }
+      setScrolled(window.scrollY > 8);
+    };
 
-    onScroll()
-    window.addEventListener('scroll', onScroll)
+    onScroll();
+    window.addEventListener("scroll", onScroll);
 
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Prevent body scrolling when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [mobileMenuOpen])
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <>
       <header
         className={`sticky top-0 z-40 border-b border-white/20 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/60 shadow-[0_8px_30px_rgba(27,28,28,0.06)] backdrop-blur-xl'
-            : 'bg-white/40 backdrop-blur-md'
+            ? "bg-white/60 shadow-[0_8px_30px_rgba(27,28,28,0.06)] backdrop-blur-xl"
+            : "bg-white/40 backdrop-blur-md"
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-5 md:px-8 lg:px-12">
@@ -70,8 +70,8 @@ function Navbar() {
                 to={link.to}
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-[#000000] underline decoration-[#fed65b] decoration-2 underline-offset-4 transition duration-300'
-                    : 'relative transition duration-300 hover:-translate-y-0.5 hover:text-[#000000] after:absolute after:bottom-[-4px] after:left-0 after:h-[1px] after:w-0 after:bg-[#fed65b] after:transition-all after:duration-300 hover:after:w-full'
+                    ? "text-[#000000] underline decoration-[#fed65b] decoration-2 underline-offset-4 transition duration-300"
+                    : "relative transition duration-300 hover:-translate-y-0.5 hover:text-[#000000] after:absolute after:bottom-[-4px] after:left-0 after:h-[1px] after:w-0 after:bg-[#fed65b] after:transition-all after:duration-300 hover:after:w-full"
                 }
               >
                 {link.label}
@@ -130,7 +130,7 @@ function Navbar() {
                 <X size={24} />
               </button>
             </div>
-            
+
             <div className="flex flex-1 flex-col items-center justify-center gap-8">
               {links.map((link, i) => (
                 <motion.div
@@ -144,7 +144,7 @@ function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={({ isActive }) =>
                       `text-3xl font-display uppercase tracking-widest ${
-                        isActive ? 'text-[#fed65b]' : 'text-[#000000]'
+                        isActive ? "text-[#fed65b]" : "text-[#000000]"
                       }`
                     }
                   >
@@ -152,7 +152,7 @@ function Navbar() {
                   </NavLink>
                 </motion.div>
               ))}
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -172,7 +172,7 @@ function Navbar() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
