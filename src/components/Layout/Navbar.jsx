@@ -58,7 +58,7 @@ function Navbar() {
             <span className="font-display text-xl font-semibold tracking-[0.24em] text-[#000000]">
               ELEGANCE
             </span>
-            <span className="text-[10px] uppercase tracking-[0.35em] text-[#4c4546] transition duration-300 hover:text-[#735c00]">
+            <span className="text-[10px] uppercase tracking-[0.35em] text-[#4c4546] transition duration-300 hover:text-[#5c4a00]">
               Editorial fashion house
             </span>
           </NavLink>
@@ -82,7 +82,7 @@ function Navbar() {
           <div className="flex items-center gap-4">
             <NavLink
               to="/cart"
-              className="relative inline-flex items-center justify-center rounded-full border border-[#cfc4c5] p-2.5 text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#735c00] hover:text-[#735c00]"
+              className="relative inline-flex items-center justify-center rounded-full border border-[#cfc4c5] p-2.5 text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#5c4a00] hover:text-[#5c4a00]"
               aria-label="Open cart"
             >
               <ShoppingBag size={18} />
@@ -94,7 +94,7 @@ function Navbar() {
             </NavLink>
             <NavLink
               to="/visit"
-              className="hidden items-center justify-center rounded-full border border-[#cfc4c5] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#735c00] hover:text-[#735c00] md:inline-flex"
+              className="hidden items-center justify-center rounded-full border border-[#cfc4c5] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#5c4a00] hover:text-[#5c4a00] md:inline-flex"
             >
               Book visit
             </NavLink>
@@ -157,8 +157,15 @@ function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + links.length * 0.1 }}
-                className="mt-8"
+                className="mt-6 flex flex-wrap items-center justify-center gap-4"
               >
+                <NavLink
+                  to="/cart"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#000000] px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#000000] transition duration-300 hover:bg-[#000000] hover:text-[#ffffff]"
+                >
+                  <ShoppingBag size={18} /> Cart ({totalItems})
+                </NavLink>
                 <NavLink
                   to="/visit"
                   onClick={() => setMobileMenuOpen(false)}

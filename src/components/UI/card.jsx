@@ -22,7 +22,7 @@ export function InfoPanel({ eyebrow, title, description, children, className = '
     solid: 'border-[#e4e2e2] bg-[#ffffff] text-[#1b1c1c]',
   }
 
-  const eyebrowColor = tone === 'dark' ? 'text-[#fed65b]' : 'text-[#735c00]'
+  const eyebrowColor = tone === 'dark' ? 'text-[#fed65b]' : 'text-[#5c4a00]'
   const titleColor = tone === 'dark' ? 'text-[#ffffff]' : 'text-[#000000]'
   const descriptionColor = tone === 'dark' ? 'text-[#e2e2e2]' : 'text-[#4c4546]'
 

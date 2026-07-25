@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="border-t border-[#e4e2e2] bg-[#ffffff]/70 backdrop-blur">
@@ -10,12 +12,12 @@ function Footer() {
           >
             Contact
           </a>
-          <a href="/visit" className="transition hover:text-[#000000]">
+          <Link to="/visit" className="transition hover:text-[#000000]">
             Book visit
-          </a>
-          <a href="/shop" className="transition hover:text-[#000000]">
+          </Link>
+          <Link to="/shop" className="transition hover:text-[#000000]">
             Private edit
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

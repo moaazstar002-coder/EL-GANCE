@@ -53,7 +53,7 @@ function HomePage() {
       <section className="grid gap-8 rounded-[2rem] border border-white/40 bg-white/40 backdrop-blur-md p-6 shadow-[0_20px_80px_rgba(27,28,28,0.06)] opacity-0 animate-[fadeIn_0.8s_ease-out_forwards] lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
         <div className="flex flex-col justify-between">
           <div className="space-y-5">
-            <p className="text-sm uppercase tracking-[0.35em] text-[#735c00]">
+            <p className="text-sm uppercase tracking-[0.35em] text-[#5c4a00]">
               New season - 2026 edit
             </p>
             <h1 className="font-display text-4xl leading-tight text-[#000000] sm:text-5xl lg:text-6xl">
@@ -119,7 +119,7 @@ function HomePage() {
             delay={index * 0.12}
             className="rounded-[1.3rem] border border-white/40 bg-white/40 backdrop-blur-md p-6 shadow-sm transition-colors hover:bg-white/60"
           >
-            <p className="text-sm uppercase tracking-[0.3em] text-[#735c00]">0{index + 1}</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-[#5c4a00]">0{index + 1}</p>
             <p className="mt-3 font-display text-xl text-[#000000]">{item.title}</p>
             <p className="mt-3 text-sm leading-7 text-[#4c4546]">{item.description}</p>
           </AnimatedCard>
@@ -165,10 +165,10 @@ function HomePage() {
               <p className="mt-5 font-display text-xl text-[#000000]">{piece.name}</p>
               <p className="mt-2 text-sm leading-7 text-[#4c4546]">{piece.detail}</p>
               <div className="mt-5 flex items-center justify-between">
-                <span className="text-sm font-semibold uppercase tracking-[0.2em] text-[#735c00]">
+                <span className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5c4a00]">
                   {piece.price}
                 </span>
-                <Link to="/shop" className="rounded-full border border-[#cfc4c5] px-3 py-2 text-sm text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#735c00] hover:text-[#735c00]">
+                <Link to="/shop" className="rounded-full border border-[#cfc4c5] px-3 py-2 text-sm text-[#1b1c1c] transition duration-300 hover:-translate-y-0.5 hover:border-[#5c4a00] hover:text-[#5c4a00]">
                   View
                 </Link>
               </div>

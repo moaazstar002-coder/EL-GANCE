@@ -136,13 +136,13 @@ function ProductDetails() {
 
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="rounded-[1.5rem] border border-white/40 bg-white/40 backdrop-blur-md p-6">
-              <p className="text-sm uppercase tracking-[0.25em] text-[#735c00]">Price</p>
+              <p className="text-sm uppercase tracking-[0.25em] text-[#5c4a00]">Price</p>
               <p className="mt-3 text-lg text-[#1b1c1c]">
                 {item.price ? `$${item.price}` : 'Available on request'}
               </p>
             </div>
             <div className="rounded-[1.5rem] border border-white/40 bg-white/40 backdrop-blur-md p-6">
-              <p className="text-sm uppercase tracking-[0.25em] text-[#735c00]">Stock</p>
+              <p className="text-sm uppercase tracking-[0.25em] text-[#5c4a00]">Stock</p>
               <p className="mt-3 text-lg text-[#1b1c1c]">
                 {typeof item.stock === 'number' ? `${item.stock} pieces` : 'Limited availability'}
               </p>
@@ -162,7 +162,7 @@ function ProductDetails() {
           </div>
 
           <div className="rounded-[1.5rem] border border-white/30 bg-white/30 backdrop-blur-sm p-6">
-            <p className="text-sm uppercase tracking-[0.25em] text-[#735c00]">Delivery notes</p>
+            <p className="text-sm uppercase tracking-[0.25em] text-[#5c4a00]">Delivery notes</p>
             <p className="mt-3 text-sm leading-7 text-[#4c4546]">
               Private purchases are handled by appointment. We recommend pairing this piece with the studio edit for a complete look.
             </p>

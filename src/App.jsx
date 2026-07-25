@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Layout/Navbar'
 import Footer from './components/Layout/Footer'
+import ScrollToTop from './components/Layout/ScrollToTop'
 import HomePage from './Pages/HomePage'
 import CollectionPage from './Pages/CollectionPage'
 import JournalPage from './Pages/JournalPage'
@@ -34,6 +35,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <CartProvider>
         <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffaf0_0%,_#fbf9f9_36%,_#f4f0ed_100%)] text-[#1b1c1c]">
           <Navbar />

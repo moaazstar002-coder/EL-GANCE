@@ -119,7 +119,7 @@ function CartPage() {
                         <div>
                           <Link
                             to={`/shop/${item.slug || item.id}`}
-                            className="font-display text-xl text-[#000000] transition hover:text-[#735c00]"
+                            className="font-display text-xl text-[#000000] transition hover:text-[#5c4a00]"
                           >
                             {item.title}
                           </Link>
@@ -128,7 +128,7 @@ function CartPage() {
                           </p>
                         </div>
                         {/* ✅ Unit Price */}
-                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#735c00]">
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#5c4a00]">
                           {formatCurrency(normalizedPrice)}
                         </p>
                       </div>
@@ -162,7 +162,7 @@ function CartPage() {
                         <button
                           type="button"
                           onClick={() => removeFromCart(item.id)}
-                          className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#735c00] transition hover:text-[#000000]"
+                          className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#5c4a00] transition hover:text-[#000000]"
                         >
                           <Trash2 size={16} /> Remove
                         </button>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { shopItems } from '../data/shopItems'
 import { api } from '../services/api'
 import { AnimatedButton, AnimatedCard, SectionHeader } from '../components/UI/button'
 import { TagList } from '../components/UI/card'
-import { Badge, LoadingState } from '../components/UI/advanced'
+import { Badge, LoadingState, EmptyState } from '../components/UI/advanced'
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { Eye } from 'lucide-react'
@@ -87,11 +88,18 @@ function ShopPage() {
 
       {loading ? <LoadingState label="Loading the private edit..." /> : null}
 
+      {!loading && products.length === 0 ? (
+        <EmptyState
+          title="No pieces available"
+          description="We are currently updating our private collection. Please check back shortly."
+        />
+      ) : null}
+
       <section className="grid gap-6 md:grid-cols-2">
         {products.map((item, index) => (
           <AnimatedCard
             key={item.id}
-            delay={index * 0.12}
+            delay={Math.min(index * 0.08, 0.4)}
             className="group overflow-hidden rounded-[1.8rem] border border-white/50 bg-white/50 backdrop-blur-md shadow-[0_18px_50px_rgba(27,28,28,0.08)] transition-all hover:bg-white/70"
           >
             <div className="relative overflow-hidden rounded-[1.6rem] p-0">
@@ -102,13 +110,18 @@ function ShopPage() {
               <img
                 src={item.image}
                 alt={item.title}
+                loading="lazy"
                 className="h-80 w-full bg-[#ffffff] object-contain object-center p-3 transition duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 backdrop-blur-[2px]">
+              <Link
+                to={`/shop/${item.slug}`}
+                className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 backdrop-blur-[2px]"
+                aria-label={`Quick view ${item.title}`}
+              >
                 <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold uppercase tracking-widest text-black shadow-lg">
                   <Eye size={16} /> Quick View
                 </div>
-              </div>
+              </Link>
             </div>
             <div className="p-6">
               <div className="flex flex-wrap items-center gap-2">
@@ -117,7 +130,7 @@ function ShopPage() {
               </div>
               <p className="mt-3 text-sm leading-7 text-[#4c4546]">{item.description}</p>
               {item.price ? (
-                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#735c00]">
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#5c4a00]">
                   ${item.price}
                 </p>
               ) : null}
@@ -125,7 +138,7 @@ function ShopPage() {
                 <AnimatedButton to={`/shop/${item.slug}`} variant="primary">
                   View piece
                 </AnimatedButton>
-                <span className="text-xs uppercase tracking-[0.25em] text-[#735c00]">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#5c4a00]">
                   Hand-selected
                 </span>
               </div>

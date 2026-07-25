@@ -52,7 +52,7 @@ function VisitPage() {
               <img src="/images/products/product-7.jpg" alt="Studio interior" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/50 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 rounded-[1.4rem] bg-[#ffffff]/90 p-5 text-[#1b1c1c] shadow-lg backdrop-blur-sm">
-                <p className="text-sm uppercase tracking-[0.3em] text-[#735c00]">Studio</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-[#5c4a00]">Studio</p>
                 <p className="mt-2 text-lg font-semibold">
                   A calm space to explore texture, proportion, and quiet details.
                 </p>
