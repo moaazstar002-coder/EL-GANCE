@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { AnimatedButton, AnimatedCard } from '../components/UI/button'
+import { AnimatedButton } from '../components/ui/button'
+import { AnimatedCard } from '../components/ui/card'
 import { Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
 

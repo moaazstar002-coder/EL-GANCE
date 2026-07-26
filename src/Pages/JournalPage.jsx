@@ -1,5 +1,5 @@
-import { AnimatedCard, SectionHeader } from '../components/UI/button'
-import { InfoPanel } from '../components/UI/card'
+import { AnimatedCard, InfoPanel } from '../components/ui/card'
+import { SectionHeader } from '../components/ui/section'
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 

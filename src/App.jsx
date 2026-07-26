@@ -1,17 +1,18 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import Navbar from './components/Layout/Navbar'
-import Footer from './components/Layout/Footer'
-import ScrollToTop from './components/Layout/ScrollToTop'
+import Navbar from './components/layout/Navbar'
+import Footer from './components/layout/Footer'
+import ScrollToTop from './components/layout/ScrollToTop'
 import HomePage from './Pages/HomePage'
 import CollectionPage from './Pages/CollectionPage'
 import JournalPage from './Pages/JournalPage'
 import VisitPage from './Pages/VisitPage'
-import ShopPage from './Pages/Shop'
+import ShopPage from './Pages/ShopPage'
 import ProductDetails from './Pages/ProductDetails'
-import CartPage from './Pages/cart'
-import NotFound from './Pages/404_NotFound'
+import CartPage from './Pages/CartPage'
+import NotFound from './Pages/NotFoundPage'
 import { CartProvider } from './context/CartContext'
+
 
 function AnimatedRoutes() {
   const location = useLocation()

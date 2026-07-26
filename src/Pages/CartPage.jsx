@@ -3,12 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "../context/CartContext";
-import {
-  AnimatedButton,
-  AnimatedCard,
-  SectionHeader,
-} from "../components/UI/button";
-import { EmptyState } from "../components/UI/advanced";
+import { AnimatedButton } from "../components/ui/button";
+import { AnimatedCard } from "../components/ui/card";
+import { SectionHeader } from "../components/ui/section";
+import { EmptyState } from "../components/ui/feedback";
 
 // ✅ Centralized currency formatter
 function formatCurrency(value) {

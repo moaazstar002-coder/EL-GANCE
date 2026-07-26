@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
-import { AnimatedButton, AnimatedCard, SectionHeader } from '../components/UI/button'
+import { AnimatedButton } from '../components/ui/button'
+import { AnimatedCard } from '../components/ui/card'
+import { SectionHeader } from '../components/ui/section'
 
 function NotFound() {
   return (

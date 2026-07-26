@@ -1,6 +1,6 @@
-import { AnimatedCard } from '../components/UI/button'
-import { InfoPanel } from '../components/UI/card'
-import { SectionShell, InputField } from '../components/UI/advanced'
+import { AnimatedCard, InfoPanel } from '../components/ui/card'
+import { SectionShell } from '../components/ui/section'
+import { InputField } from '../components/ui/form'
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 

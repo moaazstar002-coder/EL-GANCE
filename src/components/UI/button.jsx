@@ -44,37 +44,3 @@ export function AnimatedButton({ children, to, href, variant = 'primary', classN
   )
 }
 
-export function SectionHeader({ eyebrow, title, description, align = 'left', className = '' }) {
-  const alignClass = align === 'center' ? 'mx-auto text-center' : 'text-left'
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5 }}
-      className={`${alignClass} ${className}`.trim()}
-    >
-      {eyebrow ? <p className="text-sm uppercase tracking-[0.3em] text-[#5c4a00]">{eyebrow}</p> : null}
-      {title ? <h2 className="mt-3 font-display text-3xl text-[#000000] sm:text-4xl">{title}</h2> : null}
-      {description ? <p className="mt-4 max-w-2xl text-lg leading-8 text-[#4c4546]">{description}</p> : null}
-    </motion.div>
-  )
-}
-
-export function AnimatedCard({ children, className = '', delay = 0, hover = true, ...props }) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, delay }}
-      whileHover={hover ? { y: -6, scale: 1.01 } : undefined}
-      whileTap={hover ? { scale: 0.99 } : undefined}
-      className={className}
-      {...props}
-    >
-      {children}
-    </motion.article>
-  )
-}
