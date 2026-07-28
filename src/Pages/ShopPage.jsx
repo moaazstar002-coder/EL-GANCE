@@ -11,6 +11,7 @@ import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { Eye } from 'lucide-react'
 
+
 function normalizeProduct(item) {
   return {
     id: item._id || item.slug,
