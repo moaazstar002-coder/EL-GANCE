@@ -1,15 +1,16 @@
-function ProductList({ products }) {
+function ProductList({ products = [] }) {
   if (!products.length) {
-    return <p>No products found 😢</p>;
+    return <p className="text-slate-500">No products found 😢</p>;
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((product) => (
-        <div key={product.id} className="border p-3">
-          <h3>{product.name}</h3>
-          <p>${product.price}</p>
-        </div>
+        <article key={product.id} className="rounded border border-slate-200 bg-white p-4 shadow-sm">
+          <h3 className="text-lg font-semibold text-slate-800">{product.name}</h3>
+          <p className="mt-2 text-sm uppercase tracking-wide text-slate-500">{product.category}</p>
+          <p className="mt-4 text-base font-medium text-slate-900">${product.price}</p>
+        </article>
       ))}
     </div>
   );

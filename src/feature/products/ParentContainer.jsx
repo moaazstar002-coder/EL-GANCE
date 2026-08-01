@@ -1,4 +1,4 @@
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import Sort from "./Sort";
 import Filter from "./Filter";
 import ProductList from "./ProductList";
@@ -16,19 +16,30 @@ function ProductsPage() {
     setSearch,
     sort,
     setSort,
-    setFilters,
+    category,
+    setCategory,
+    categories,
     filteredProducts,
   } = useProductFilter(INITIAL_PRODUCTS);
 
   return (
-    <>
-      <SearchBar value={search} onChange={setSearch} />
-      <Sort value={sort} onChange={setSort} />
-      <Filter setFilters={setFilters} />
+    <section className="space-y-4">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex-1">
+          <SearchBar value={search} onChange={setSearch} />
+        </div>
+        <Sort value={sort} onChange={setSort} />
+      </div>
+
+      <Filter
+        categories={categories}
+        activeCategory={category}
+        onChangeCategory={setCategory}
+      />
 
       <ProductList products={filteredProducts} />
-    </>
+    </section>
   );
 }
 
-export default ProductsPage;
+export default ProductsPage;
