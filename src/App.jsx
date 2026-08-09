@@ -12,6 +12,7 @@ import ProductDetails from './Pages/ProductDetails'
 import CartPage from './Pages/CartPage'
 import NotFound from './Pages/NotFoundPage'
 import { CartProvider } from './context/CartContext'
+import { ErrorBoundary } from './components/ui/ErrorBoundary'
 
 
 function AnimatedRoutes() {
@@ -35,18 +36,20 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <CartProvider>
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffaf0_0%,_#fbf9f9_36%,_#f4f0ed_100%)] text-[#1b1c1c]">
-          <Navbar />
-          <main className="mx-auto w-full max-w-7xl px-5 py-8 md:px-8 lg:px-12 lg:py-10">
-            <AnimatedRoutes />
-          </main>
-          <Footer />
-        </div>
-      </CartProvider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <ScrollToTop />
+        <CartProvider>
+          <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffaf0_0%,_#fbf9f9_36%,_#f4f0ed_100%)] text-[#1b1c1c]">
+            <Navbar />
+            <main className="mx-auto w-full max-w-7xl px-5 py-8 md:px-8 lg:px-12 lg:py-10">
+              <AnimatedRoutes />
+            </main>
+            <Footer />
+          </div>
+        </CartProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }
 

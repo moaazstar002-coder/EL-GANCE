@@ -7,10 +7,13 @@ import { AnimatedCard, TagList } from '../components/ui/card'
 import { SectionHeader } from '../components/ui/section'
 import { Badge } from '../components/ui/advanced'
 import { LoadingState, EmptyState } from '../components/ui/feedback'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { Eye } from 'lucide-react'
-
+import { Eye, X } from 'lucide-react'
+import SearchBar from '../feature/products/SearchBar'
+import Sort from '../feature/products/Sort'
+import Filter from '../feature/products/Filter'
+import useProductFilter from '../feature/products/useProductFilter'
 
 function normalizeProduct(item) {
   return {
@@ -29,6 +32,18 @@ function normalizeProduct(item) {
 function ShopPage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [quickViewProduct, setQuickViewProduct] = useState(null)
+
+  const {
+    search,
+    setSearch,
+    sort,
+    setSort,
+    category,
+    setCategory,
+    categories,
+    filteredProducts,
+  } = useProductFilter(products)
 
   useEffect(() => {
     let ignore = false
@@ -98,8 +113,33 @@ function ShopPage() {
         />
       ) : null}
 
+      {!loading && products.length > 0 ? (
+        <section className="rounded-[2rem] border border-white/50 bg-white/55 p-6 shadow-[0_12px_36px_rgba(27,28,28,0.05)]">
+          <div className="grid gap-4 lg:grid-cols-[minmax(280px,1fr)_auto_auto] lg:items-end">
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.28em] text-[#5c4a00]">
+                Search the edit
+              </label>
+              <SearchBar value={search} onChange={setSearch} placeholder="Search by piece or mood..." />
+            </div>
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.28em] text-[#5c4a00]">
+                Sort by
+              </label>
+              <Sort value={sort} onChange={setSort} />
+            </div>
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.28em] text-[#5c4a00]">
+                Categories
+              </label>
+              <Filter categories={categories} activeCategory={category} onChangeCategory={setCategory} />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="grid gap-6 md:grid-cols-2">
-        {products.map((item, index) => (
+        {filteredProducts.map((item, index) => (
           <AnimatedCard
             key={item.id}
             delay={Math.min(index * 0.08, 0.4)}
@@ -116,15 +156,16 @@ function ShopPage() {
                 loading="lazy"
                 className="h-80 w-full bg-[#ffffff] object-contain object-center p-3 transition duration-700 group-hover:scale-105"
               />
-              <Link
-                to={`/shop/${item.slug}`}
+              <button
+                type="button"
+                onClick={() => setQuickViewProduct(item)}
                 className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 backdrop-blur-[2px]"
                 aria-label={`Quick view ${item.title}`}
               >
                 <div className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold uppercase tracking-widest text-black shadow-lg">
                   <Eye size={16} /> Quick View
                 </div>
-              </Link>
+              </button>
             </div>
             <div className="p-6">
               <div className="flex flex-wrap items-center gap-2">
@@ -149,6 +190,66 @@ function ShopPage() {
           </AnimatedCard>
         ))}
       </section>
+
+      {!loading && filteredProducts.length === 0 && products.length > 0 ? (
+        <EmptyState
+          title="No matching pieces"
+          description="Try adjusting your search or category filter to reopen the private edit."
+        />
+      ) : null}
+
+      <AnimatePresence>
+        {quickViewProduct ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+            onClick={() => setQuickViewProduct(null)}
+          >
+            <motion.article
+              initial={{ y: 20, scale: 0.98 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 20, scale: 0.98 }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/50 bg-[#fdfbf7] shadow-2xl"
+            >
+              <button
+                type="button"
+                aria-label="Close quick view"
+                onClick={() => setQuickViewProduct(null)}
+                className="absolute right-4 top-4 z-10 rounded-full bg-white/90 p-2 text-[#1b1c1c] shadow-md transition hover:bg-[#fed65b]"
+              >
+                <X size={16} />
+              </button>
+              <div className="grid md:grid-cols-[0.88fr_1fr]">
+                <div className="bg-white p-5">
+                  <img src={quickViewProduct.image} alt={quickViewProduct.title} className="h-full min-h-72 w-full object-cover object-center" />
+                </div>
+                <div className="p-8">
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#5c4a00]">Private preview</p>
+                    <Badge variant="default">{quickViewProduct.isNew ? 'New' : quickViewProduct.category}</Badge>
+                  </div>
+                  <h3 className="mt-4 font-display text-4xl leading-none text-[#000000]">{quickViewProduct.title}</h3>
+                  <p className="mt-5 text-sm leading-7 text-[#4c4546]">{quickViewProduct.description}</p>
+                  <p className="mt-4 text-sm font-bold uppercase tracking-[0.3em] text-[#5c4a00]">
+                    {quickViewProduct.price ? `$${quickViewProduct.price}` : 'Private inquiry'}
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <AnimatedButton to={`/shop/${quickViewProduct.slug}`} variant="primary">
+                      View piece
+                    </AnimatedButton>
+                    <AnimatedButton variant="secondary" onClick={() => setQuickViewProduct(null)}>
+                      Continue browsing
+                    </AnimatedButton>
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </motion.div>
   )
 }

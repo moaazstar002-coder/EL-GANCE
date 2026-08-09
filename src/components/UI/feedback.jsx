@@ -1,4 +1,31 @@
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+
+export function Toast({ open = false, message = '', tone = 'success' }) {
+  if (!open || !message) return null
+
+  const tones = {
+    success: 'border-[#5c4a00] bg-[#1b1c1c] text-[#ffffff]',
+    info: 'border-[#a8913d] bg-[#fffaf0] text-[#1b1c1c]',
+  }
+
+  return (
+    <div className="fixed bottom-6 right-6 z-[120] max-w-sm">
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 12 }}
+          className={`rounded-[1rem] border px-5 py-4 shadow-xl backdrop-blur-md ${tones[tone] || tones.success}`.trim()}
+        >
+          <div className="flex items-center gap-3">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#fed65b]" />
+            <p className="text-sm font-semibold uppercase tracking-[0.2em]">{message}</p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
 
 export function LoadingState({ label = 'Loading content...' }) {
   return (

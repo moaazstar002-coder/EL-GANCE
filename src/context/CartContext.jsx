@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { Toast } from '../components/ui/feedback'
 
 const CartContext = createContext()
 const STORAGE_KEY = 'elegance_cart'
@@ -15,6 +16,8 @@ function normalizeCartItems(items) {
 }
 
 export function CartProvider({ children }) {
+  const [toast, setToast] = useState({ open: false, message: '' })
+
   const [cart, setCart] = useState(() => {
     if (typeof window === 'undefined') return []
 
@@ -33,20 +36,57 @@ export function CartProvider({ children }) {
     }
   }, [cart])
 
+  const showToast = (message) => {
+    setToast({ open: true, message })
+
+    if (typeof window !== 'undefined') {
+      window.clearTimeout(showToast.hideTimer)
+      showToast.hideTimer = window.setTimeout(() => {
+        setToast({ open: false, message: '' })
+      }, 2600)
+    }
+  }
+
   // ✅ Add product to cart (merge if exists)
-  const addToCart = (product, quantity = 1) => {
+  const addToCart = (product, quantity = 1, selected = {}) => {
     const normalizedQuantity = Math.max(1, Number(quantity) || 1)
 
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id)
+      const matchingSelection = {
+        size: selected.size || product.selectedSize || product.size || '',
+        color: selected.color || product.selectedColor || product.color || '',
+      }
+
+      const selectionKey = `${matchingSelection.size || 'default'}::${matchingSelection.color || 'default'}`
+
+      const existing = prev.find(
+        (item) =>
+          item.id === product.id &&
+          `${item.selectedSize || ''}::${item.selectedColor || ''}` === selectionKey,
+      )
+
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + normalizedQuantity } : item
+          item.id === product.id && `${item.selectedSize || ''}::${item.selectedColor || ''}` === selectionKey
+            ? { ...item, quantity: item.quantity + normalizedQuantity }
+            : item,
         )
       }
 
-      return [...prev, { ...product, quantity: normalizedQuantity }]
+      return [
+        ...prev,
+        {
+          ...product,
+          quantity: normalizedQuantity,
+          selectedSize: matchingSelection.size,
+          selectedColor: matchingSelection.color,
+          cartSelection: selectionKey,
+        },
+      ]
     })
+
+    const label = selected.size || product.selectedSize || selected.color || product.selectedColor
+    showToast(`${product.title || product.name} added to bag${label ? ` — ${label}` : ''}`)
   }
 
   // ✅ Remove product from cart
@@ -112,9 +152,11 @@ export function CartProvider({ children }) {
         subtotal, // ✅ NOW EXPORTED
         isInCart,
         getItemQuantity,
+        showToast,
       }}
     >
       {children}
+      <Toast open={toast.open} message={toast.message} />
     </CartContext.Provider>
   )
 }

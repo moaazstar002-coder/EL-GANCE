@@ -20,6 +20,7 @@ function normalizeProduct(item) {
     description: item.description,
     details: item.details || item.description,
     image: item.images?.[0] || item.image,
+    images: Array.isArray(item.images) ? item.images : item.image ? [item.image] : [],
     price: item.price,
     sizes: item.sizes || [],
     colors: item.colors || [],
@@ -33,6 +34,9 @@ function ProductDetails() {
   const { slug } = useParams()
   const [item, setItem] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [selectedSize, setSelectedSize] = useState('')
+  const [selectedColor, setSelectedColor] = useState('')
+  const [activeImage, setActiveImage] = useState('')
   const { addToCart } = useCart()
 
   useEffect(() => {
@@ -42,11 +46,21 @@ function ProductDetails() {
       try {
         const product = await api.getProductById(slug)
         if (!ignore) {
-          setItem(normalizeProduct(product))
+          const normalized = normalizeProduct(product)
+          setItem(normalized)
+          setSelectedSize(normalized?.sizes?.[0] || '')
+          setSelectedColor(normalized?.colors?.[0]?.name || '')
+          const imageList = normalizeProduct(product)?.image ? [normalizeProduct(product)?.image, ...(normalized.images || [])] : []
+          setActiveImage(imageList[0] || '')
         }
       } catch {
         if (!ignore) {
-          setItem(normalizeProduct(getItemBySlug(slug)))
+          const normalized = normalizeProduct(getItemBySlug(slug))
+          setItem(normalized)
+          setSelectedSize(normalized?.sizes?.[0] || '')
+          setSelectedColor(normalized?.colors?.[0]?.name || '')
+          const imageList = normalized?.image ? [normalized.image, ...(normalized.images || [])] : []
+          setActiveImage(imageList[0] || '')
         }
       } finally {
         if (!ignore) {
@@ -61,6 +75,13 @@ function ProductDetails() {
       ignore = true
     }
   }, [slug])
+
+  useEffect(() => {
+    if (!item) return
+
+    const gallery = item.images?.length ? item.images : [item.image]
+    setActiveImage((current) => current || gallery[0])
+  }, [item])
 
   if (loading) {
     return <LoadingState label="Loading product details..." />
@@ -101,7 +122,21 @@ function ProductDetails() {
           <div className="absolute left-6 top-6 z-10 rounded-full bg-white/85 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#1b1c1c] backdrop-blur">
             Signature piece
           </div>
-          <img src={item.image} alt={item.title} className="relative h-full w-full object-cover" />
+          <div className="relative">
+            <img src={activeImage || item.image} alt={item.title} className="relative h-full w-full object-cover" />
+          </div>
+          <div className="grid grid-cols-4 gap-3 p-4">
+            {(item.images?.length ? item.images : [item.image]).map((image, index) => (
+              <button
+                key={`${image}-${index}`}
+                type="button"
+                onClick={() => setActiveImage(image)}
+                className={`overflow-hidden rounded-xl border p-1 ${activeImage === image ? 'border-[#5c4a00]' : 'border-[#e4e2e2]'}`}
+              >
+                <img src={image} alt={`${item.title} gallery ${index + 1}`} className="h-20 w-full object-cover" />
+              </button>
+            ))}
+          </div>
         </div>
 
         <AnimatedCard className="space-y-8 rounded-[2rem] border border-white/50 bg-white/60 backdrop-blur-lg p-10 shadow-[0_20px_70px_rgba(27,28,28,0.06)]">
@@ -113,27 +148,39 @@ function ProductDetails() {
           />
           <p className="text-base leading-8 text-[#4c4546]">{item.details}</p>
 
-          <div className="flex flex-wrap gap-3">
-            {item.sizes.map((size) => (
-              <span
-                key={size}
-                className="rounded-full border border-[#e4e2e2] px-4 py-2 text-sm uppercase tracking-[0.2em] text-[#4c4546]"
-              >
-                {size}
-              </span>
-            ))}
+          <div className="space-y-3">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#5c4a00]">Choose your size</p>
+            <div className="flex flex-wrap gap-3">
+              {item.sizes.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => setSelectedSize(size)}
+                  className={`rounded-full border px-4 py-2 text-sm uppercase tracking-[0.2em] transition ${selectedSize === size ? 'border-[#1b1c1c] bg-[#1b1c1c] text-[#ffffff]' : 'border-[#e4e2e2] text-[#4c4546] hover:border-[#5c4a00]'}`}
+                  aria-pressed={selectedSize === size}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            {item.colors.map((color) => (
-              <span
-                key={color.name}
-                className="inline-flex items-center gap-2 rounded-full border border-[#e4e2e2] px-4 py-2 text-sm text-[#4c4546]"
-              >
-                <span className="h-3 w-3 rounded-full border border-black/10" style={{ backgroundColor: color.hex }} />
-                {color.name}
-              </span>
-            ))}
+          <div className="space-y-3">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#5c4a00]">Choose your finish</p>
+            <div className="flex flex-wrap gap-3">
+              {item.colors.map((color) => (
+                <button
+                  key={color.name}
+                  type="button"
+                  onClick={() => setSelectedColor(color.name)}
+                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition ${selectedColor === color.name ? 'border-[#1b1c1c] bg-[#1b1c1c] text-[#ffffff]' : 'border-[#e4e2e2] text-[#4c4546] hover:border-[#5c4a00]'}`}
+                  aria-pressed={selectedColor === color.name}
+                >
+                  <span className="h-3 w-3 rounded-full border border-black/10" style={{ backgroundColor: color.hex || color.name }} />
+                  {color.name}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
@@ -152,7 +199,10 @@ function ProductDetails() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <AnimatedButton variant="primary" onClick={() => addToCart(item)}>
+            <AnimatedButton
+              variant="primary"
+              onClick={() => addToCart(item, 1, { size: selectedSize, color: selectedColor })}
+            >
               Add to bag
             </AnimatedButton>
             <Link
